@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import useApi from '../../utils/useApi'
 import Header from '../../components/Header'
 import Carts from '../../components/Carts'
 import Cards from '../../components/Cards'
 
 function Home() {
+    const api = useApi()
     const [data, setData] = useState(null)
     const [carts, setCarts] = useState([])
     const [total, setTotal] = useState(0)
@@ -46,10 +47,9 @@ function Home() {
     }, [carts])
 
     useEffect(() => {
-        axios
-            .get('http://localhost:8000/product')
-            .then((res) => {
-                setData(res.data.data)
+        api({ method: 'GET', url: '/product' })
+            .then(({ data }) => {
+                setData(data.data)
             })
             .catch((err) => {
                 console.log(err)
