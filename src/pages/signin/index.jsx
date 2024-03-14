@@ -1,10 +1,21 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import useApi from '../../utils/useApi'
+import { login } from '../../store/reducer/user'
 
 function Signin() {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const api = useApi()
     const [userData, setUserData] = useState({})
+
+    const { isAuth } = useSelector((s) => s.users)
+    useEffect(() => {
+        if (isAuth) {
+            navigate('/')
+        }
+    }, [isAuth])
 
     const changeHanlder = (e) => {
         const data = { ...userData }
@@ -19,7 +30,7 @@ function Signin() {
             data: userData
         })
             .then(({ data }) => {
-                console.log(data)
+                dispatch(login(data.token))
             })
             .catch((err) => {
                 console.log(err)

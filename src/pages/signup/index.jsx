@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useApi from '../../utils/useApi'
 
 function Signin() {
+    const navigate = useNavigate()
     const api = useApi()
     const [form, setForm] = useState({})
 
@@ -18,8 +19,8 @@ function Signin() {
             url: '/users',
             data: form
         })
-            .then((res) => {
-                console.log(res)
+            .then((_) => {
+                navigate('/signin')
             })
             .catch((err) => {
                 console.log(err)

@@ -40,7 +40,7 @@ function Admin() {
             data: formData
         })
             .then((_) => {
-                navigate('/signin')
+                navigate('/')
             })
             .catch((err) => {
                 console.log(err)

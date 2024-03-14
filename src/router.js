@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
+import PrivateRoute from "./privateRoute"
 import Home from './pages/home/home'
 import Product from './pages/product/product'
 import Admin from './pages/admin'
@@ -17,7 +18,11 @@ export default createBrowserRouter([
     },
     {
         path: '/admin',
-        element: <Admin />
+        element: (
+            <PrivateRoute>
+                <Admin />
+            </PrivateRoute>
+        )
     },
     {
         path: '/signin',
